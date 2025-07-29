@@ -1,1 +1,230 @@
-Hello World
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nguyen Happy | DevSecOps & AI Specialist</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #1e293b;
+      --accent: #38bdf8;
+      --bg: #f8fafc;
+      --text: #0f172a;
+      --card: #fff;
+      --shadow: 0 4px 24px rgba(30,41,59,0.08);
+    }
+    [data-theme="dark"] {
+      --primary: #0f172a;
+      --accent: #38bdf8;
+      --bg: #0a192f;
+      --text: #f1f5f9;
+      --card: #1e293b;
+      --shadow: 0 4px 24px rgba(15,23,42,0.32);
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: 'Roboto', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      transition: background 0.3s, color 0.3s;
+    }
+    header {
+      background: var(--primary);
+      color: #fff;
+      padding: 2rem 0 1.5rem 0;
+      text-align: center;
+      box-shadow: var(--shadow);
+      position: relative;
+    }
+    .theme-toggle {
+      position: absolute;
+      top: 1.5rem;
+      right: 2rem;
+      background: var(--card);
+      color: var(--primary);
+      border: none;
+      border-radius: 2rem;
+      padding: 0.5rem 1rem;
+      font-size: 1rem;
+      cursor: pointer;
+      box-shadow: 0 2px 8px rgba(30,41,59,0.08);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: background 0.3s, color 0.3s;
+    }
+    .theme-toggle:focus {
+      outline: 2px solid var(--accent);
+    }
+    header h1 {
+      margin: 0 0 0.5rem 0;
+      font-size: 2.5rem;
+      font-weight: 700;
+    }
+    header p {
+      margin: 0;
+      font-size: 1.2rem;
+      color: var(--accent);
+      font-weight: 500;
+    }
+    .container {
+      max-width: 800px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+    }
+    section {
+      background: var(--card);
+      border-radius: 1rem;
+      box-shadow: var(--shadow);
+      margin-bottom: 2rem;
+      padding: 2rem;
+      transition: background 0.3s, color 0.3s;
+    }
+    h2 {
+      margin-top: 0;
+      color: var(--primary);
+      font-size: 1.5rem;
+    }
+    .skills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      margin-top: 1rem;
+    }
+    .skill {
+      flex: 1 1 120px;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      background: #f1f5f9;
+      border-radius: 0.5rem;
+      padding: 0.75rem 1rem;
+      font-weight: 500;
+      box-shadow: 0 2px 8px rgba(30,41,59,0.04);
+      transition: background 0.3s, color 0.3s;
+    }
+    [data-theme="dark"] .skill {
+      background: #1e293b;
+      color: #f1f5f9;
+    }
+    .skill img {
+      width: 32px;
+      height: 32px;
+      object-fit: contain;
+    }
+    .contact-links {
+      display: flex;
+      gap: 1.5rem;
+      margin-top: 1rem;
+      flex-wrap: wrap;
+    }
+    .contact-links a {
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 500;
+      border-bottom: 2px solid var(--accent);
+      transition: color 0.2s;
+    }
+    .contact-links a:hover {
+      color: var(--accent);
+    }
+    @media (max-width: 600px) {
+      header h1 { font-size: 2rem; }
+      section { padding: 1rem; }
+      .skills { flex-direction: column; gap: 1rem; }
+      .theme-toggle { right: 1rem; top: 1rem; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+      <span id="theme-icon">🌙</span> <span id="theme-label">Dark Mode</span>
+    </button>
+    <h1>Nguyen Happy</h1>
+    <p>DevSecOps & AI Specialist | Azure, AWS, GCP</p>
+  </header>
+  <div class="container">
+    <section>
+      <h2>About Me</h2>
+      <p>
+        Hi! I'm Nguyen, a passionate DevSecOps and AI professional. I specialize in building secure, scalable, and intelligent solutions in the cloud. My experience spans Azure, AWS, and GCP, where I help teams automate, secure, and optimize their cloud infrastructure and AI/ML workflows.
+      </p>
+    </section>
+    <section>
+      <h2>Skills & Technologies</h2>
+      <div class="skills">
+        <div class="skill"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/azure/azure-original.svg" alt="Azure">Azure</div>
+        <div class="skill"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-original.svg" alt="AWS">AWS</div>
+        <div class="skill"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/googlecloud/googlecloud-original.svg" alt="GCP">GCP</div>
+        <div class="skill"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg" alt="Docker">Docker</div>
+        <div class="skill"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/kubernetes/kubernetes-plain.svg" alt="Kubernetes">Kubernetes</div>
+        <div class="skill"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" alt="Python">Python</div>
+        <div class="skill"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/terraform/terraform-original.svg" alt="Terraform">Terraform</div>
+        <div class="skill"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linux/linux-original.svg" alt="Linux">Linux</div>
+        <div class="skill"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" alt="GitHub">GitHub Actions</div>
+        <div class="skill"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/ai/ai-original.svg" alt="AI">AI/ML</div>
+      </div>
+    </section>
+    <section>
+      <h2>Projects</h2>
+      <div class="projects">
+        <div class="project">
+          <h3>CloudGuard: Multi-Cloud Security Automation</h3>
+          <p>Automated security compliance and monitoring across Azure, AWS, and GCP using Terraform, Python, and native cloud tools. Integrated with CI/CD pipelines for continuous security validation.</p>
+        </div>
+        <div class="project">
+          <h3>AIOps Insight Platform</h3>
+          <p>Developed an AI-driven monitoring and anomaly detection platform for cloud infrastructure, leveraging machine learning to predict incidents and optimize resource usage.</p>
+        </div>
+        <div class="project">
+          <h3>DevSecOps Accelerator</h3>
+          <p>Built a reusable DevSecOps framework with GitHub Actions, Docker, and Kubernetes, enabling rapid, secure deployment pipelines for microservices in the cloud.</p>
+        </div>
+      </div>
+    </section>
+    <section>
+      <h2>Contact</h2>
+      <div class="contact-links">
+        <a href="https://github.com/nguyenhappy92" target="_blank">GitHub</a>
+        <a href="mailto:nguyenhappy92@gmail.com">Email</a>
+        <a href="https://www.linkedin.com/in/nguyenhappy92" target="_blank">LinkedIn</a>
+        <!-- Add your LinkedIn or other links here -->
+      </div>
+    </section>
+  </div>
+  <script>
+    // Theme toggle logic
+    const themeToggle = document.getElementById('theme-toggle');
+    const themeIcon = document.getElementById('theme-icon');
+    const themeLabel = document.getElementById('theme-label');
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const savedTheme = localStorage.getItem('theme');
+    function setTheme(theme) {
+      document.documentElement.setAttribute('data-theme', theme);
+      if (theme === 'dark') {
+        themeIcon.textContent = '☀️';
+        themeLabel.textContent = 'Light Mode';
+      } else {
+        themeIcon.textContent = '🌙';
+        themeLabel.textContent = 'Dark Mode';
+      }
+    }
+    // Set initial theme
+    if (savedTheme) {
+      setTheme(savedTheme);
+    } else {
+      setTheme(prefersDark ? 'dark' : 'light');
+    }
+    themeToggle.addEventListener('click', () => {
+      const current = document.documentElement.getAttribute('data-theme');
+      const next = current === 'dark' ? 'light' : 'dark';
+      setTheme(next);
+      localStorage.setItem('theme', next);
+    });
+  </script>
+</body>
+</html> 
