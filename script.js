@@ -1,5 +1,11 @@
 // Smooth scrolling for anchor links
 document.addEventListener('DOMContentLoaded', function() {
+    // Create floating particles
+    createFloatingParticles();
+    
+    // Add mouse interaction to gradient orbs
+    addMouseInteraction();
+
     // Smooth scroll for all anchor links
     const links = document.querySelectorAll('a[href^="#"]');
     links.forEach(link => {
@@ -119,7 +125,7 @@ document.addEventListener('DOMContentLoaded', function() {
             
             setTimeout(() => {
                 this.innerHTML = originalText;
-                this.style.background = 'linear-gradient(135deg, #ff8c42, #ff6b35)';
+                this.style.background = 'linear-gradient(135deg, #FFCC66, #FFB833)';
             }, 2000);
         });
     }
@@ -136,7 +142,7 @@ document.addEventListener('DOMContentLoaded', function() {
         height: 50px;
         border-radius: 50%;
         border: none;
-        background: linear-gradient(135deg, #ff8c42, #ff6b35);
+        background: linear-gradient(135deg, #FFCC66, #FFB833);
         color: white;
         font-size: 1.2rem;
         cursor: pointer;
@@ -169,7 +175,7 @@ document.addEventListener('DOMContentLoaded', function() {
         height: 50px;
         border-radius: 50%;
         border: none;
-        background: linear-gradient(135deg, #ff8c42, #ff6b35);
+        background: linear-gradient(135deg, #FFCC66, #FFB833);
         color: white;
         font-size: 1.2rem;
         cursor: pointer;
@@ -257,4 +263,57 @@ const darkModeCSS = `
 // Inject dark mode CSS
 const style = document.createElement('style');
 style.textContent = darkModeCSS;
-document.head.appendChild(style); 
+document.head.appendChild(style);
+
+// Function to create floating particles
+function createFloatingParticles() {
+    const particleContainer = document.querySelector('.floating-shapes');
+    const particleCount = 25;
+    
+    for (let i = 0; i < particleCount; i++) {
+        const particle = document.createElement('div');
+        particle.className = 'particle';
+        
+        // Random size (bigger for more visibility)
+        const size = Math.random() * 12 + 4;
+        particle.style.width = size + 'px';
+        particle.style.height = size + 'px';
+        
+        // Random position
+        particle.style.left = Math.random() * 100 + '%';
+        particle.style.animationDelay = Math.random() * 15 + 's';
+        particle.style.animationDuration = (Math.random() * 10 + 15) + 's';
+        
+        particleContainer.appendChild(particle);
+    }
+}
+
+// Function to add mouse interaction
+function addMouseInteraction() {
+    const orbs = document.querySelectorAll('.gradient-orb');
+    
+    document.addEventListener('mousemove', (e) => {
+        const mouseX = e.clientX / window.innerWidth;
+        const mouseY = e.clientY / window.innerHeight;
+        
+        orbs.forEach((orb, index) => {
+            const speed = (index + 1) * 0.5;
+            const x = (mouseX - 0.5) * speed * 50;
+            const y = (mouseY - 0.5) * speed * 50;
+            
+            orb.style.transform = `translate(${x}px, ${y}px)`;
+        });
+    });
+}
+
+// Add parallax scrolling effect
+window.addEventListener('scroll', () => {
+    const scrolled = window.pageYOffset;
+    const parallaxElements = document.querySelectorAll('.shape');
+    
+    parallaxElements.forEach((element, index) => {
+        const speed = (index + 1) * 0.5;
+        const yPos = -(scrolled * speed * 0.1);
+        element.style.transform = `translateY(${yPos}px) rotate(${scrolled * 0.1}deg)`;
+    });
+}); 
