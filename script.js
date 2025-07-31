@@ -258,6 +258,26 @@ const darkModeCSS = `
     .dark-mode .project-content p {
         color: #d1d5db !important;
     }
+    
+    .dark-mode .skill-category h3 {
+        color: #f9fafb !important;
+    }
+    
+    .dark-mode .timeline-content h3 {
+        color: #f9fafb !important;
+    }
+    
+    .dark-mode .company {
+        color: #d1d5db !important;
+    }
+    
+    .dark-mode .timeline-date {
+        color: #FFCC66 !important;
+    }
+    
+    .dark-mode .contact-content p {
+        color: #d1d5db !important;
+    }
 `;
 
 // Inject dark mode CSS
