@@ -8,8 +8,211 @@ const CONFIG = {
     TYPING_SPEED: 100         // Speed of typing animation (ms per character)
 };
 
-// Smooth scrolling for anchor links
+// Protection against right-click and developer tools
 document.addEventListener('DOMContentLoaded', function() {
+    // Check if device is mobile to avoid false positives
+    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    
+    // Disable right-click context menu
+    document.addEventListener('contextmenu', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        return false;
+    });
+
+    // Disable text selection
+    document.addEventListener('selectstart', function(e) {
+        e.preventDefault();
+        return false;
+    });
+
+    // Disable drag and drop
+    document.addEventListener('dragstart', function(e) {
+        e.preventDefault();
+        return false;
+    });
+
+    // Disable F12, Ctrl+Shift+I, Ctrl+Shift+J, Ctrl+U, Ctrl+S
+    document.addEventListener('keydown', function(e) {
+        // F12 key
+        if (e.keyCode === 123) {
+            e.preventDefault();
+            e.stopPropagation();
+            return false;
+        }
+        
+        // Ctrl+Shift+I, Ctrl+Shift+J, Ctrl+Shift+C (Developer Tools)
+        if (e.ctrlKey && e.shiftKey && (e.keyCode === 73 || e.keyCode === 74 || e.keyCode === 67)) {
+            e.preventDefault();
+            e.stopPropagation();
+            return false;
+        }
+        
+        // Ctrl+U (View Source)
+        if (e.ctrlKey && e.keyCode === 85) {
+            e.preventDefault();
+            e.stopPropagation();
+            return false;
+        }
+        
+        // Ctrl+S (Save Page)
+        if (e.ctrlKey && e.keyCode === 83) {
+            e.preventDefault();
+            e.stopPropagation();
+            return false;
+        }
+        
+        // Ctrl+A (Select All)
+        if (e.ctrlKey && e.keyCode === 65) {
+            e.preventDefault();
+            e.stopPropagation();
+            return false;
+        }
+        
+        // Ctrl+P (Print)
+        if (e.ctrlKey && e.keyCode === 80) {
+            e.preventDefault();
+            e.stopPropagation();
+            return false;
+        }
+        
+        // F1 (Help) - can sometimes open developer tools
+        if (e.keyCode === 112) {
+            e.preventDefault();
+            e.stopPropagation();
+            return false;
+        }
+    });
+
+    // Detect if developer tools are open (skip on mobile devices)
+    if (!isMobile) {
+        let devtools = {
+            open: false,
+            orientation: null
+        };
+        
+        const threshold = 160;
+        let resizeTimeout;
+        
+        setInterval(function() {
+            // Clear any existing timeout
+            clearTimeout(resizeTimeout);
+            
+            // Add a small delay to avoid false positives during window resize
+            resizeTimeout = setTimeout(function() {
+                const heightDifference = window.outerHeight - window.innerHeight;
+                const widthDifference = window.outerWidth - window.innerWidth;
+                
+                // More sophisticated detection
+                if ((heightDifference > threshold && heightDifference < 1000) || 
+                    (widthDifference > threshold && widthDifference < 1000)) {
+                    if (!devtools.open) {
+                        devtools.open = true;
+                        // Store original content to restore later
+                        const originalContent = document.body.innerHTML;
+                        
+                        // Create warning overlay instead of replacing entire body
+                        const warningOverlay = document.createElement('div');
+                        warningOverlay.id = 'devtools-warning';
+                        warningOverlay.style.cssText = `
+                            position: fixed;
+                            top: 0;
+                            left: 0;
+                            width: 100%;
+                            height: 100%;
+                            background: rgba(0, 0, 0, 0.95);
+                            color: #fff;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            font-size: 24px;
+                            z-index: 999999;
+                            font-family: Arial, sans-serif;
+                            text-align: center;
+                            backdrop-filter: blur(10px);
+                        `;
+                        warningOverlay.innerHTML = `
+                            <div>
+                                <h2 style="margin-bottom: 20px; color: #ff4444;">⚠️ Developer Tools Detected</h2>
+                                <p style="margin-bottom: 15px;">Please close developer tools to continue.</p>
+                                <p style="font-size: 16px; opacity: 0.8;">This website is protected for security reasons.</p>
+                            </div>
+                        `;
+                        document.body.appendChild(warningOverlay);
+                    }
+                } else {
+                    if (devtools.open) {
+                        devtools.open = false;
+                        // Remove warning overlay
+                        const warningOverlay = document.getElementById('devtools-warning');
+                        if (warningOverlay) {
+                            warningOverlay.remove();
+                        }
+                    }
+                }
+            }, 100);
+        }, 500);
+    }    // Enhanced protection against console access
+    (function() {
+        try {
+            var _z = console;
+            Object.defineProperty(window, "console", {
+                get: function() {
+                    if (_z._commandLineAPI) {
+                        throw "Console has been disabled for security reasons.";
+                    }
+                    return _z;
+                },
+                set: function(val) {
+                    _z = val;
+                }
+            });
+        } catch (e) {
+            // Fallback: Override console methods
+            window.console = {
+                log: function() { return "Console disabled"; },
+                warn: function() { return "Console disabled"; },
+                error: function() { return "Console disabled"; },
+                info: function() { return "Console disabled"; },
+                debug: function() { return "Console disabled"; },
+                clear: function() { return "Console disabled"; },
+                dir: function() { return "Console disabled"; },
+                dirxml: function() { return "Console disabled"; },
+                table: function() { return "Console disabled"; },
+                trace: function() { return "Console disabled"; },
+                assert: function() { return "Console disabled"; },
+                count: function() { return "Console disabled"; },
+                markTimeline: function() { return "Console disabled"; },
+                profile: function() { return "Console disabled"; },
+                profileEnd: function() { return "Console disabled"; },
+                time: function() { return "Console disabled"; },
+                timeEnd: function() { return "Console disabled"; },
+                timeStamp: function() { return "Console disabled"; },
+                timeline: function() { return "Console disabled"; },
+                timelineEnd: function() { return "Console disabled"; },
+                group: function() { return "Console disabled"; },
+                groupCollapsed: function() { return "Console disabled"; },
+                groupEnd: function() { return "Console disabled"; }
+            };
+        }
+    })();
+
+    // Disable print screen
+    document.addEventListener('keyup', function(e) {
+        if (e.keyCode === 44) {
+            e.preventDefault();
+            return false;
+        }
+    });
+
+    // Clear console periodically (less frequent to improve performance)
+    setInterval(function() {
+        try {
+            console.clear();
+        } catch (e) {
+            // Ignore errors if console is already disabled
+        }
+    }, 5000); // Changed from 2000ms to 5000ms
     // Create floating particles
     createFloatingParticles();
     
@@ -129,12 +332,12 @@ document.addEventListener('DOMContentLoaded', function() {
             document.body.removeChild(tempInput);
             
             // Show feedback
-            const originalText = this.textContent;
-            this.textContent = 'Copied!';
+            const originalHTML = this.innerHTML;
+            this.innerHTML = '<i class="fas fa-check"></i> Copied!';
             this.style.background = 'linear-gradient(135deg, #10b981, #059669)';
             
             setTimeout(() => {
-                this.textContent = originalText;
+                this.innerHTML = originalHTML;
                 this.style.background = 'linear-gradient(135deg, #FFCC66, #FFB833)';
             }, CONFIG.COPY_FEEDBACK_DURATION);
         });
