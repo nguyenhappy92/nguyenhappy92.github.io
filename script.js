@@ -272,7 +272,7 @@ const darkModeCSS = `
     }
     
     .dark-mode .timeline-date {
-        color: #FFCC66 !important;
+        color: #ffcc66 !important;
     }
     
     .dark-mode .contact-content p {
