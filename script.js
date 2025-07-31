@@ -18,25 +18,28 @@ document.addEventListener('keydown', function(e) {
     }
 });
 
-// Prevent developer tools through console
-setInterval(function() {
-    const devtools = {
-        open: false,
-        orientation: null
-    };
-    
-    const threshold = 160;
-    
+// Prevent developer tools through ResizeObserver
+let devtoolsOpen = false;
+const threshold = 160;
+
+function checkDevTools() {
     const widthThreshold = window.outerWidth - window.innerWidth > threshold;
     const heightThreshold = window.outerHeight - window.innerHeight > threshold;
     
-    if (widthThreshold || heightThreshold) {
-        if (!devtools.open) {
-            devtools.open = true;
-            document.body.innerHTML = '<div style="text-align: center; padding: 50px; font-family: Arial, sans-serif;"><h1>Access Denied</h1><p>Developer tools are not allowed on this page.</p></div>';
-        }
+    if ((widthThreshold || heightThreshold) && !devtoolsOpen) {
+        devtoolsOpen = true;
+        document.body.innerHTML = '<div style="text-align: center; padding: 50px; font-family: Arial, sans-serif;"><h1>Access Denied</h1><p>Developer tools are not allowed on this page.</p></div>';
     }
-}, 500);
+}
+
+// Use ResizeObserver for efficient monitoring
+if (window.ResizeObserver) {
+    const resizeObserver = new ResizeObserver(checkDevTools);
+    resizeObserver.observe(document.body);
+} else {
+    // Fallback for older browsers - less frequent interval
+    setInterval(checkDevTools, 2000);
+}
 
 // Smooth scrolling for anchor links
 document.addEventListener('DOMContentLoaded', function() {
