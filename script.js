@@ -1,45 +1,12 @@
-// Prevent right-click and developer tools access
-document.addEventListener('contextmenu', function(e) {
-    e.preventDefault();
-    return false;
-});
 
-// Prevent F12, Ctrl+Shift+I, Ctrl+U, Ctrl+Shift+C
-document.addEventListener('keydown', function(e) {
-    if (
-        e.key === 'F12' ||
-        (e.ctrlKey && e.shiftKey && e.key === 'I') ||
-        (e.ctrlKey && e.key === 'u') ||
-        (e.ctrlKey && e.shiftKey && e.key === 'C') ||
-        (e.ctrlKey && e.key === 's')
-    ) {
-        e.preventDefault();
-        return false;
-    }
-});
 
-// Prevent developer tools through ResizeObserver
-let devtoolsOpen = false;
-const threshold = 160;
-
-function checkDevTools() {
-    const widthThreshold = window.outerWidth - window.innerWidth > threshold;
-    const heightThreshold = window.outerHeight - window.innerHeight > threshold;
-    
-    if ((widthThreshold || heightThreshold) && !devtoolsOpen) {
-        devtoolsOpen = true;
-        document.body.innerHTML = '<div style="text-align: center; padding: 50px; font-family: Arial, sans-serif;"><h1>Access Denied</h1><p>Developer tools are not allowed on this page.</p></div>';
-    }
-}
-
-// Use ResizeObserver for efficient monitoring
-if (window.ResizeObserver) {
-    const resizeObserver = new ResizeObserver(checkDevTools);
-    resizeObserver.observe(document.body);
-} else {
-    // Fallback for older browsers - less frequent interval
-    setInterval(checkDevTools, 2000);
-}
+// Configuration constants
+const CONFIG = {
+    TYPING_DELAY: 500,        // Delay before starting typing animation (ms)
+    COPY_FEEDBACK_DURATION: 2000,  // Duration to show "Copied!" feedback (ms)
+    SCROLL_TO_TOP_THRESHOLD: 300,  // Scroll position to show "back to top" button (px)
+    TYPING_SPEED: 100         // Speed of typing animation (ms per character)
+};
 
 // Smooth scrolling for anchor links
 document.addEventListener('DOMContentLoaded', function() {
@@ -100,12 +67,12 @@ document.addEventListener('DOMContentLoaded', function() {
             if (i < originalText.length) {
                 nameElement.textContent += originalText.charAt(i);
                 i++;
-                setTimeout(typeWriter, 100);
+                setTimeout(typeWriter, CONFIG.TYPING_SPEED);
             }
         }
         
         // Start typing effect after a short delay
-        setTimeout(typeWriter, 500);
+        setTimeout(typeWriter, CONFIG.TYPING_DELAY);
     }
 
     // Add hover effects to skill tags
@@ -134,7 +101,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const footer = document.querySelector('.footer p');
     if (footer) {
         const currentYear = new Date().getFullYear();
-        footer.innerHTML = footer.innerHTML.replace('2024', currentYear);
+        footer.textContent = footer.textContent.replace('2024', currentYear);
     }
 
     // Add loading animation
@@ -162,20 +129,22 @@ document.addEventListener('DOMContentLoaded', function() {
             document.body.removeChild(tempInput);
             
             // Show feedback
-            const originalText = this.innerHTML;
-            this.innerHTML = '<i class="fas fa-check"></i> Copied!';
+            const originalText = this.textContent;
+            this.textContent = 'Copied!';
             this.style.background = 'linear-gradient(135deg, #10b981, #059669)';
             
             setTimeout(() => {
-                this.innerHTML = originalText;
+                this.textContent = originalText;
                 this.style.background = 'linear-gradient(135deg, #FFCC66, #FFB833)';
-            }, 2000);
+            }, CONFIG.COPY_FEEDBACK_DURATION);
         });
     }
 
     // Add dark mode toggle (optional feature)
     const darkModeToggle = document.createElement('button');
-    darkModeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+    const moonIcon = document.createElement('i');
+    moonIcon.className = 'fas fa-moon';
+    darkModeToggle.appendChild(moonIcon);
     darkModeToggle.className = 'dark-mode-toggle';
     darkModeToggle.style.cssText = `
         position: fixed;
@@ -208,7 +177,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Add scroll to top button
     const scrollToTopBtn = document.createElement('button');
-    scrollToTopBtn.innerHTML = '<i class="fas fa-arrow-up"></i>';
+    const arrowIcon = document.createElement('i');
+    arrowIcon.className = 'fas fa-arrow-up';
+    scrollToTopBtn.appendChild(arrowIcon);
     scrollToTopBtn.className = 'scroll-to-top';
     scrollToTopBtn.style.cssText = `
         position: fixed;
@@ -232,7 +203,7 @@ document.addEventListener('DOMContentLoaded', function() {
     document.body.appendChild(scrollToTopBtn);
     
     window.addEventListener('scroll', function() {
-        if (window.pageYOffset > 300) {
+        if (window.pageYOffset > CONFIG.SCROLL_TO_TOP_THRESHOLD) {
             scrollToTopBtn.style.opacity = '1';
             scrollToTopBtn.style.visibility = 'visible';
         } else {
