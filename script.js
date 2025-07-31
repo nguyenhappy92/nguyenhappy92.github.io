@@ -1,3 +1,43 @@
+// Prevent right-click and developer tools access
+document.addEventListener('contextmenu', function(e) {
+    e.preventDefault();
+    return false;
+});
+
+// Prevent F12, Ctrl+Shift+I, Ctrl+U, Ctrl+Shift+C
+document.addEventListener('keydown', function(e) {
+    if (
+        e.key === 'F12' ||
+        (e.ctrlKey && e.shiftKey && e.key === 'I') ||
+        (e.ctrlKey && e.key === 'u') ||
+        (e.ctrlKey && e.shiftKey && e.key === 'C') ||
+        (e.ctrlKey && e.key === 's')
+    ) {
+        e.preventDefault();
+        return false;
+    }
+});
+
+// Prevent developer tools through console
+setInterval(function() {
+    const devtools = {
+        open: false,
+        orientation: null
+    };
+    
+    const threshold = 160;
+    
+    const widthThreshold = window.outerWidth - window.innerWidth > threshold;
+    const heightThreshold = window.outerHeight - window.innerHeight > threshold;
+    
+    if (widthThreshold || heightThreshold) {
+        if (!devtools.open) {
+            devtools.open = true;
+            document.body.innerHTML = '<div style="text-align: center; padding: 50px; font-family: Arial, sans-serif;"><h1>Access Denied</h1><p>Developer tools are not allowed on this page.</p></div>';
+        }
+    }
+}, 500);
+
 // Smooth scrolling for anchor links
 document.addEventListener('DOMContentLoaded', function() {
     // Create floating particles
