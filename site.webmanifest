@@ -1,0 +1,26 @@
+{
+    "name": "Happy Nguyen - DevSecOps Architect",
+    "short_name": "Happy Nguyen",
+    "description": "Personal website of Happy Nguyen - DevSecOps Architect & AI Specialist",
+    "icons": [
+        {
+            "src": "favicon-16x16.png",
+            "sizes": "16x16",
+            "type": "image/png"
+        },
+        {
+            "src": "favicon-32x32.png",
+            "sizes": "32x32",
+            "type": "image/png"
+        },
+        {
+            "src": "apple-touch-icon.png",
+            "sizes": "180x180",
+            "type": "image/png"
+        }
+    ],
+    "theme_color": "#FFCC66",
+    "background_color": "#FFFFFF",
+    "display": "standalone",
+    "start_url": "/"
+}
