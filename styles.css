@@ -256,6 +256,24 @@ body {
     line-height: 1.6;
 }
 
+.timeline-content .role-focus {
+    font-size: 0.95rem;
+    color: #6b7280;
+    margin-bottom: 0.75rem;
+}
+
+.timeline-content h4 {
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: #374151;
+    margin-top: 1rem;
+    margin-bottom: 0.35rem;
+}
+
+.timeline-content h4:first-of-type {
+    margin-top: 0.5rem;
+}
+
 /* Projects Section */
 .projects-grid {
     display: grid;
