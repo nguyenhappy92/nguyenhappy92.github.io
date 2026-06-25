@@ -21,3 +21,4 @@ cv-preview.png
 *.synctex.gz
 *.fdb_latexmk
 *.fls
+.codegraph/
