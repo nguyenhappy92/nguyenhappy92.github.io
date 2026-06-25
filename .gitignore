@@ -1,0 +1,23 @@
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Editor / IDE
+.vscode/
+.idea/
+*.swp
+*~
+
+# Local tooling
+.codegraph/
+
+# LaTeX build artifacts (source: cv.tex; deploy: Hy-Nguyen-Happy.pdf)
+cv.pdf
+cv-preview.png
+*.log
+*.aux
+*.out
+*.synctex.gz
+*.fdb_latexmk
+*.fls
