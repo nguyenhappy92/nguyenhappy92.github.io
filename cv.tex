@@ -1,0 +1,159 @@
+% =============================================================
+%  Hy Nguyen (Happy) - Curriculum Vitae
+%  Compile with:  tectonic cv.tex      (recommended, self-contained)
+%             or:  pdflatex cv.tex      (run twice)
+%             or:  upload to Overleaf and press Recompile
+%  TIP: add quantified metrics (uptime %, deploy-time %, hours saved) where possible.
+% =============================================================
+\documentclass[a4paper,10pt]{article}
+
+% ---------- Packages ----------
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[margin=1.6cm]{geometry}
+\usepackage{xcolor}
+\usepackage{titlesec}
+\usepackage{enumitem}
+\usepackage[hidelinks]{hyperref}
+
+% ---------- Colors ----------
+\definecolor{accent}{HTML}{E67E00}   % darker orange = good contrast on white
+\definecolor{dark}{HTML}{1F2937}
+\definecolor{muted}{HTML}{4B5563}
+
+\hypersetup{colorlinks=true, urlcolor=accent, linkcolor=accent}
+
+% ---------- Section styling ----------
+\titleformat{\section}
+  {\color{accent}\large\bfseries\scshape}{}{0em}{}[{\color{accent}\titlerule}]
+\titlespacing*{\section}{0pt}{10pt}{5pt}
+
+% ---------- Experience entry: {title}{company}{dates}{location} ----------
+\newcommand{\role}[4]{%
+  \textbf{#1}\hfill{\color{muted}\small #3}\\[1pt]
+  {\color{accent}#2}\hfill{\color{muted}\small\textit{#4}}\par\vspace{3pt}}
+
+\setlist[itemize]{leftmargin=1.2em, itemsep=1pt, topsep=2pt, parsep=0pt}
+\setlength{\parindent}{0pt}
+\pagestyle{empty}
+
+\begin{document}
+
+% ---------- Header ----------
+{\Huge\bfseries\color{dark} Hy Nguyen }{\large\color{muted}(Happy)}\\[4pt]
+{\large\color{accent} Principal DevSecOps \& AI Platform Engineer}\\[6pt]
+{\small
+Ho Chi Minh City, Vietnam $\cdot$ +84 969 149 659 $\cdot$
+\href{mailto:nguyenhappy92@gmail.com}{nguyenhappy92@gmail.com}\\[3pt]
+\href{https://happynguyen.name.vn}{happynguyen.name.vn} $\cdot$
+\href{https://www.linkedin.com/in/nguyenhappy92}{linkedin.com/in/nguyenhappy92} $\cdot$
+\href{https://github.com/nguyenhappy92}{github.com/nguyenhappy92}}
+
+% ---------- Summary ----------
+\section{Summary}
+Principal DevSecOps engineer with 9+ years across cloud infrastructure, security, and
+platform engineering, including 4+ years leading DevOps/DevSecOps teams. I design and
+operate secure, scalable cloud foundations (Azure Landing Zones, AWS multi-account) and
+build AI platforms and agents on Amazon Bedrock and Claude with end-to-end MLOps/LLMOps.
+Strong in Kubernetes, Terraform, CI/CD, and observability, with a security-first,
+automation-driven approach.
+
+% ---------- Skills ----------
+\section{Core Skills}
+\textbf{AI \& Agents:} Amazon Bedrock, Claude (Anthropic API), Amazon Q, LangChain/LangGraph,
+RAG, MCP, vector search, Cursor, prompt engineering, MLOps/LLMOps\\[2pt]
+\textbf{Cloud:} Azure, AWS, GCP --- Landing Zones, governance, cost optimization\\[2pt]
+\textbf{Containers:} Kubernetes (AKS/EKS/GKE), Docker, Helm, ArgoCD, Linkerd, NGINX Ingress\\[2pt]
+\textbf{IaC \& CI/CD:} Terraform, Bicep, Ansible, Terraspace; GitHub Actions, Jenkins,
+Azure DevOps, GitLab CI, TeamCity\\[2pt]
+\textbf{Security:} ISO 27001, SOC 2, PCI DSS, SAST/DAST, SonarQube, Vault\\[2pt]
+\textbf{Observability:} Datadog, New Relic, Grafana, Prometheus, Loki, ELK\\[2pt]
+\textbf{Data/DB:} PostgreSQL, MSSQL, MongoDB, MariaDB, Cosmos DB, Redis, Snowflake\\[2pt]
+\textbf{Languages:} Python, Go, Bash, TypeScript/JavaScript
+
+% ---------- Experience ----------
+\section{Experience}
+
+\role{Principal DevSecOps Engineer}{MoneyForward Vietnam}{Jan 2026 -- Present}{Ho Chi Minh City}
+\begin{itemize}
+  \item Own design and delivery of the company AI Platform and Azure foundation used by
+        internal teams to build and run AI agents and automation.
+  \item Built the AI Platform (APIs, standards, MLOps) so teams can onboard and run models and
+        agents with minimal friction.
+  \item Designed and implemented Landing Zones on both Azure and AWS (multi-subscription/
+        multi-account, governance, policy guardrails) with security baselines meeting company
+        and regulatory standards.
+  \item Designed and implemented an AI Landing Zone on AWS for secure, governed AI/ML workloads,
+        with security baselines, guardrails, and Amazon Bedrock-based services.
+  \item Developed and deployed AI agents on Amazon Bedrock and Claude to automate engineering and
+        product workflows, with a focus on token efficiency and agent security.
+  \item Drive org-wide technical standards for DevSecOps, cloud, and AI infrastructure.
+\end{itemize}
+
+\role{DevSecOps Team Lead}{Mercatus}{Mar 2021 -- Dec 2025}{Ho Chi Minh City}
+\begin{itemize}
+  \item Led a DevSecOps team architecting secure, scalable infrastructure across Azure, AWS,
+        and GCP for enterprise clients (US, Israel, Canada).
+  \item Designed an AI Landing Zone and end-to-end MLOps pipelines for deploying AI agents and
+        chatbots in production.
+  \item Established Azure Landing Zones and AWS foundational environments with ISO 27001 / SOC 2
+        compliance and automated governance.
+  \item Built highly available AKS/EKS clusters (Linkerd, NGINX Ingress) with Grafana/ELK/
+        Prometheus/Loki/New Relic observability for production reliability.
+  \item Automated provisioning (Terraform/Ansible) and CI/CD (GitHub Actions, Jenkins, ArgoCD,
+        Azure DevOps, SonarQube) to accelerate and standardize delivery.
+  \item Delivered data engineering (Azure Data Factory, Snowflake/Snowpipe/Snowpark) and BI
+        (Power BI, Sigma) for data-driven decisions.
+\end{itemize}
+
+\role{DevOps Lead}{FINVIET --- ECO E-wallet}{Jun 2019 -- Mar 2021}{Ho Chi Minh City}
+\begin{itemize}
+  \item Led a cross-functional DevOps team building the ECO e-wallet payment platform across
+        private cloud and AWS/GCP with full DC/DR.
+  \item Built CI/CD pipelines (GitLab, Jenkins, TeamCity, GitHub Actions, ArgoCD) and IaC with
+        Terraspace/Ansible.
+  \item Designed HA databases (MongoDB Cluster, MariaDB Galera, Oracle Data Guard/RAC) and
+        monitoring (PRTG, Nagios, Grafana, Prometheus) for predictive alerting.
+  \item Operated enterprise firewalls (FortiGate 500E, Sophos XG, pfSense) and VMware
+        vSphere/Horizon VDI; applied ISO 27001 and IPS/IDS controls.
+\end{itemize}
+
+\role{System Administrator}{123HOST (Digital Storage Co.)}{Mar 2016 -- Jun 2019}{Ho Chi Minh City}
+\begin{itemize}
+  \item Managed hosting, domains, VPS, and dedicated servers (cPanel/Plesk/DirectAdmin) on
+        Windows and Linux for a large customer base.
+  \item Deployed dedicated servers (Dell R610/R730, HP ProLiant) at Viettel/VNPT datacenters;
+        built monitoring with Cacti/Zabbix/Nagios/Grafana.
+\end{itemize}
+
+% ---------- Projects ----------
+\section{Selected Projects}
+\begin{itemize}
+  \item \textbf{Happy Agent --- AI Coworker \& Marketplace:} AI coworker tool and agent that
+        installs as a plugin into existing workflows, with improved token efficiency and
+        hardened agent security (scoped permissions, safe tool execution, guardrails), plus a
+        marketplace to discover and install agents/plugins.
+  \item \textbf{AI Landing Zone on AWS:} Secure, governed foundation for AI/ML workloads and
+        agents --- multi-account guardrails, security baselines, MLOps, and Amazon Bedrock.
+  \item \textbf{Azure/AWS Landing Zone Migration (Mercatus):} Centralized RelationShop,
+        Self-Point, and Mercatus systems onto Azure/AWS/GCP with cost and architecture
+        optimization. Team of 12; role: DevSecOps Lead.
+  \item \textbf{Salescore (Blockchain):} Coin/point management on AWS (EKS, Solidity, Web3.js)
+        with IaC and ISO/SOC 2 compliance.
+\end{itemize}
+
+% ---------- Certifications ----------
+\section{Certifications}
+\begin{itemize}
+  \item Microsoft Certified: Azure Solutions Architect Expert
+  \item Microsoft Certified: Azure Administrator Associate; Azure Developer Associate
+  \item AWS Certified Solutions Architect -- Associate
+  \item CCNA \, $\cdot$ \, LPIC-1 \& LPIC-2 \, $\cdot$ \, IELTS 6.5
+  \item More badges: \href{https://www.credly.com/users/nguyenhappy92/badges}{credly.com/users/nguyenhappy92/badges}
+\end{itemize}
+
+% ---------- Education ----------
+\section{Education}
+\role{B.Eng. Computer Networks}{HCMC University of Technology and Education}{Aug 2012 -- Aug 2016}{Ho Chi Minh City}
+
+\end{document}

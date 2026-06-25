@@ -5,6 +5,16 @@
     box-sizing: border-box;
 }
 
+:root {
+    --accent-light: #FFCC66;
+    --accent: #FF9900;
+    --accent-deep: #E67E00;
+    --accent-strong: #B35900;   /* readable orange on white (WCAG AA) */
+    --tag-text: #4a2c00;        /* readable on orange tags (WCAG AA) */
+    --ink: #1f2937;
+    --muted: #4b5563;
+}
+
 body {
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     line-height: 1.6;
@@ -71,7 +81,7 @@ body {
     font-weight: 700;
     color: #1f2937;
     margin-bottom: 0.5rem;
-    background: linear-gradient(135deg, #FFCC66, #FFB833);
+    background: linear-gradient(135deg, #CC6600, #E67E00);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -107,7 +117,7 @@ body {
     width: 50px;
     height: 50px;
     border-radius: 50%;
-    background: linear-gradient(135deg, #FFCC66, #FFB833);
+    background: linear-gradient(135deg, var(--accent-deep), #CC6600);
     color: white;
     text-decoration: none;
     font-size: 1.2rem;
@@ -183,12 +193,12 @@ body {
 }
 
 .skill-tag {
-    background: linear-gradient(135deg, #FFCC66, #FFB833);
-    color: white;
+    background: linear-gradient(135deg, #FFB833, #FF9900);
+    color: var(--tag-text);
     padding: 0.5rem 1rem;
     border-radius: 25px;
     font-size: 0.9rem;
-    font-weight: 500;
+    font-weight: 600;
     transition: all 0.3s ease;
 }
 
@@ -233,7 +243,7 @@ body {
 
 .timeline-date {
     font-weight: 600;
-    color: #FFCC66;
+    color: var(--accent-strong);
     font-size: 0.9rem;
     margin-bottom: 0.5rem;
 }
@@ -310,6 +320,25 @@ body {
     transform: scale(1.05);
 }
 
+.project-image-placeholder {
+    height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, var(--accent-light), var(--accent-deep));
+    color: #fff;
+}
+
+.project-image-placeholder i {
+    font-size: 4rem;
+    opacity: 0.9;
+    transition: transform 0.3s ease;
+}
+
+.project-card:hover .project-image-placeholder i {
+    transform: scale(1.1);
+}
+
 .project-content {
     padding: 1.5rem;
 }
@@ -336,15 +365,15 @@ body {
     display: flex;
     align-items: center;
     gap: 0.5rem;
-    color: #FFCC66;
+    color: var(--accent-strong);
     text-decoration: none;
-    font-weight: 500;
+    font-weight: 600;
     font-size: 0.9rem;
     transition: color 0.3s ease;
 }
 
 .project-link:hover {
-    color: #FFB833;
+    color: var(--accent-deep);
 }
 
 /* Contact Section */
@@ -382,14 +411,14 @@ body {
 }
 
 .contact-btn.primary {
-    background: linear-gradient(135deg, #FFCC66, #FFB833);
+    background: linear-gradient(135deg, var(--accent-deep), #CC6600);
     color: white;
 }
 
 .contact-btn.secondary {
     background: white;
-    color: #FFCC66;
-    border: 2px solid #FFCC66;
+    color: var(--accent-strong);
+    border: 2px solid var(--accent-deep);
 }
 
 .contact-btn:hover {

@@ -323,23 +323,36 @@ document.addEventListener('DOMContentLoaded', function() {
         emailLink.addEventListener('click', function(e) {
             const email = this.href.replace('mailto:', '');
             
-            // Create a temporary element to copy email
-            const tempInput = document.createElement('input');
-            tempInput.value = email;
-            document.body.appendChild(tempInput);
-            tempInput.select();
-            document.execCommand('copy');
-            document.body.removeChild(tempInput);
-            
-            // Show feedback
-            const originalHTML = this.innerHTML;
-            this.innerHTML = '<i class="fas fa-check"></i> Copied!';
-            this.style.background = 'linear-gradient(135deg, #10b981, #059669)';
-            
-            setTimeout(() => {
-                this.innerHTML = originalHTML;
-                this.style.background = 'linear-gradient(135deg, #FFCC66, #FFB833)';
-            }, CONFIG.COPY_FEEDBACK_DURATION);
+            // Swap link content to a "Copied!" state using safe DOM methods
+            const showCopied = () => {
+                const originalNodes = Array.from(this.childNodes);
+                const checkIcon = document.createElement('i');
+                checkIcon.className = 'fas fa-check';
+
+                this.textContent = '';
+                this.appendChild(checkIcon);
+                this.appendChild(document.createTextNode(' Copied!'));
+                this.style.background = 'linear-gradient(135deg, #10b981, #059669)';
+
+                setTimeout(() => {
+                    this.textContent = '';
+                    originalNodes.forEach((node) => this.appendChild(node));
+                    this.style.background = '';
+                }, CONFIG.COPY_FEEDBACK_DURATION);
+            };
+
+            // Prefer the modern async clipboard API, fall back to execCommand
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(email).then(showCopied).catch(showCopied);
+            } else {
+                const tempInput = document.createElement('input');
+                tempInput.value = email;
+                document.body.appendChild(tempInput);
+                tempInput.select();
+                try { document.execCommand('copy'); } catch (err) { /* no-op */ }
+                document.body.removeChild(tempInput);
+                showCopied();
+            }
         });
     }
 
@@ -366,16 +379,19 @@ document.addEventListener('DOMContentLoaded', function() {
         z-index: 1000;
     `;
     
+    darkModeToggle.setAttribute('aria-label', 'Toggle dark mode');
     document.body.appendChild(darkModeToggle);
-    
+
+    // Restore saved theme preference
+    if (localStorage.getItem('theme') === 'dark') {
+        document.body.classList.add('dark-mode');
+        darkModeToggle.querySelector('i').className = 'fas fa-sun';
+    }
+
     darkModeToggle.addEventListener('click', function() {
-        document.body.classList.toggle('dark-mode');
-        const icon = this.querySelector('i');
-        if (document.body.classList.contains('dark-mode')) {
-            icon.className = 'fas fa-sun';
-        } else {
-            icon.className = 'fas fa-moon';
-        }
+        const isDark = document.body.classList.toggle('dark-mode');
+        this.querySelector('i').className = isDark ? 'fas fa-sun' : 'fas fa-moon';
+        localStorage.setItem('theme', isDark ? 'dark' : 'light');
     });
 
     // Add scroll to top button
@@ -384,6 +400,7 @@ document.addEventListener('DOMContentLoaded', function() {
     arrowIcon.className = 'fas fa-arrow-up';
     scrollToTopBtn.appendChild(arrowIcon);
     scrollToTopBtn.className = 'scroll-to-top';
+    scrollToTopBtn.setAttribute('aria-label', 'Scroll to top');
     scrollToTopBtn.style.cssText = `
         position: fixed;
         bottom: 20px;
